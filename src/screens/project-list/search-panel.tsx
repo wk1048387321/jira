@@ -1,6 +1,24 @@
 import React from "react";
+import {Interface} from "readline";
 
-export const SearchPanel = ({users, param, setParam}) => {
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    title: string;
+    organization: string;
+}
+
+interface SearchPanel {
+    users: User[],
+    param: {
+        name: string,
+        personId: string
+    },
+    setParam: (param: SearchPanel['param']) => void;
+}
+
+export const SearchPanel = ({users, param, setParam}: SearchPanel) => {
 
     return <form action="">
         <div>
