@@ -5,7 +5,7 @@ import {SearchPanel} from "./search-panel";
 import {List} from "./list";
 import {cleanObject, useDebounce, useMount} from "../../utils";
 
-const appUrl = process.env.REACT_APP_BASE_URL
+const appUrl = process.env.REACT_APP_API_URL
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useState({name: '', personId: ''})

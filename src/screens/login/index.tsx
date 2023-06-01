@@ -1,6 +1,6 @@
 import React, {FormEvent} from "react";
 
-const appUrl = process.env.REACT_APP_BASE_URL
+const appUrl = process.env.REACT_APP_API_URL
 
 export const LoginScreen = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -12,7 +12,7 @@ export const LoginScreen = () => {
     }
 
     const login = (param: {username: string, password: string}) => {
-        fetch(`${appUrl}/login`, {
+        fetch(`${appUrl}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,6 +36,6 @@ export const LoginScreen = () => {
             <label htmlFor="password">密码</label>
             <input type="password" id={'password'}/>
         </div>
-        <button type={'submit'}>登录</button>
+        <button type={'submit'}>注册</button>
     </form>
 }
