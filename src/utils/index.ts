@@ -17,7 +17,7 @@ export const cleanObject = (obj: object) => {
     return res
 }
 
-export const isFalsy = (value: any) => value === 0 ? false : !value;
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 
 export const useMount = (callback: () => void) => {
@@ -40,7 +40,8 @@ export const useMount = (callback: () => void) => {
 //     }
 // }
 
-export const useDebounce = (value: any, delay?: number) => {
+// 后面用范性来规范类型
+export const useDebounce = (value: unknown, delay?: number): any => {
     const [debounceValue, setDebounceValue] = useState(value);
 
     useEffect(() => {
