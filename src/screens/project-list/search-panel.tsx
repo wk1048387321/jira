@@ -1,5 +1,4 @@
 import React from "react";
-import {Interface} from "readline";
 
 export interface User {
     id: string;
