@@ -1,21 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals'
 import { loadDevTools } from 'jira-dev-tool';
-// import 'antd/dist/antd.less';
+import 'antd/dist/antd.less';
 import {AppProvider} from './context'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-loadDevTools(() => root.render(
+loadDevTools(() => ReactDOM.render(
     <React.StrictMode>
         <AppProvider>
             <App />
         </AppProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById('root')
 ));
 
 // If you want to start measuring performance in your app, pass a function
