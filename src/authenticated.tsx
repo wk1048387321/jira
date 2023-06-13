@@ -4,7 +4,7 @@ import {useAuth} from "./context/auth-context";
 import styled from "@emotion/styled";
 import {Row} from "./components/lib";
 import {ReactComponent as SoftwareLogo} from './assets/software-logo.svg';
-import {Dropdown, Menu} from "antd";
+import {Button, Dropdown, Menu} from "antd";
 
 
 export const AuthenticatedApp = () => {
@@ -14,16 +14,15 @@ export const AuthenticatedApp = () => {
         <Container>
             <Header between={true}>
                 <HeaderLeft gap={true}>
-                   {/*<img src={softwareLogo} alt="LOGO" />*/}
                     <SoftwareLogo width={'18rem'} color={'rgb(38,132,255)'} />
                     <h3>项目</h3>
                     <h3>用户</h3>
                 </HeaderLeft>
                 <HeaderRight>
                     <Dropdown overlay={<Menu>
-                        <Menu.Item key={'logout'}><a onClick={logout}>退出</a></Menu.Item>
+                        <Menu.Item key={'logout'}><Button onClick={logout} type={'link'}>退出</Button></Menu.Item>
                     </Menu>}>
-                        <a onClick={e => e.preventDefault()}>Hi {user?.name}</a>
+                        <Button type={'link'}>Hi {user?.name}</Button>
                     </Dropdown>
                 </HeaderRight>
             </Header>

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { jsx } from '@emotion/react'
+// import { jsx } from '@emotion/react'
 import {Form, Input, Select} from "antd";
 
 export interface User {
@@ -21,6 +21,7 @@ interface SearchPanel {
     setParam: (param: SearchPanel['param']) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SearchPanel = ({users, param, setParam}: SearchPanel) => {
 
     return <Form layout={'inline'} css={{marginBottom: '2rem'}}>
