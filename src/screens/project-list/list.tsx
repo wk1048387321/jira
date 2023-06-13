@@ -1,14 +1,13 @@
 import React from "react";
 import {User} from "./search-panel";
-import {Table} from "antd";
+import {Table, TableProps} from "antd";
 import dayjs from "dayjs";
 
-interface ListProps {
-    list: Project[]
-    users: User[]
+interface ListProps extends TableProps<Project> {
+    users: User[];
 }
 
-interface Project {
+export interface Project {
     id: string;
     name: string;
     personId: string;
@@ -17,8 +16,8 @@ interface Project {
     created: number;
 }
 
-export const List = ({list, users}: ListProps) => {
-    return <Table pagination={false} columns={[
+export const List = ({users, ...props}: ListProps) => {
+    return <Table pagination={false} loading={false} columns={[
         {
             title: '名称',
             dataIndex: 'name',
@@ -44,5 +43,5 @@ export const List = ({list, users}: ListProps) => {
                 </span>
             }
         }
-    ]} dataSource={list} />
+    ]} {...props} />
 }
