@@ -18,15 +18,15 @@ export const login = (data: AuthForm) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }).then(
-        async res => {
-            if(res.ok) {
-               return handleUserResponse(await res.json());
-            } else {
-                return Promise.reject(data);
-            }
+    }).then(async res => {
+        if(res.ok) {
+           return handleUserResponse(await res.json());
         }
-    )
+        if(res.status === 400) {
+            return Promise.reject({status: res.status, message: (await res.json())?.message || ''})
+        }
+        return Promise.reject(data);
+    })
 }
 
 export const register = (data: AuthForm) => {
@@ -40,9 +40,11 @@ export const register = (data: AuthForm) => {
         async res => {
             if(res.ok) {
                 return handleUserResponse(await res.json());
-            }else {
-                return Promise.reject(data);
             }
+            if(res.status === 400) {
+                return Promise.reject({status: res.status, message: (await res.json())?.message || ''})
+            }
+            return Promise.reject(data);
         }
     )
 }

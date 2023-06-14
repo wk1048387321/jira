@@ -2,15 +2,19 @@ import React from "react";
 import { Form, Input } from 'antd';
 import {useAuth} from "../context/auth-context";
 import {LongBottom} from "./index";
+import {useAsync} from "../utils/use-async";
 
 
-export const LoginScreen = () => {
+export const LoginScreen = ({onError}: {onError: (error: Error) => void}) => {
     const {login} = useAuth();
-    const handleSubmit = (values: {username: string, password: string}) => {
-
-        login(values).then(res => {});
+    const {run, isLoading} = useAsync(undefined, {throwOnError: true});
+    const handleSubmit = async (values: {username: string, password: string}) => {
+        try {
+          await run(login(values));
+        } catch (e) {
+            onError(e as Error);
+        }
     }
-
 
 
     return <Form onFinish={handleSubmit}>
@@ -21,7 +25,7 @@ export const LoginScreen = () => {
             <Input placeholder={'密码'} type="password" id={'password'}/>
         </Form.Item>
         <Form.Item >
-            <LongBottom htmlType={'submit'} type={'primary'}>登录</LongBottom>
+            <LongBottom htmlType={'submit'} loading={isLoading} type={'primary'}>登录</LongBottom>
         </Form.Item>
     </Form>
 }
