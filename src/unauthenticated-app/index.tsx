@@ -6,13 +6,19 @@ import styled from '@emotion/styled';
 import logo from '../assets/logo.svg';
 import left from '../assets/left.svg';
 import right from '../assets/right.svg';
+import {useDocumentTitle} from "../utils";
 
 export const UnauthenticatedApp = () => {
     const [isRegister, setRegister] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
+    useDocumentTitle('请登录或注册以继续');
+
     return (
         <Container style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
+            {/*<Helmet>*/}
+            {/*    <title>请登录或注册以继续</title>*/}
+            {/*</Helmet>*/}
             <Header />
             <Background />
             <ShadowCard>
