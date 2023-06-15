@@ -2,9 +2,11 @@
 import React from "react";
 // import { jsx } from '@emotion/react'
 import {Form, Input, Select} from "antd";
+import {Project} from "./list";
+import {IdSelect} from "../../components/id-select";
 
 export interface User {
-    id: string;
+    id: number;
     name: string;
     email: string;
     title: string;
@@ -36,6 +38,7 @@ export const SearchPanel = ({users, param, setParam}: SearchPanel) => {
                     users.map(user => <Select.Option value={String(user.id)} key={user.id}>{user.name}</Select.Option>)
                 }
             </Select>
+            {/*<IdSelect value={param.personId} onChange={value => setParam({...param, personId: value})} />*/}
         </Form.Item>
     </Form>
 }

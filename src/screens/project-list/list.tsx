@@ -34,7 +34,7 @@ export const List = ({users, ...props}: ListProps) => {
             title: '负责人',
             key: 'id',
             render(value, project) {
-                return <span>{users.find(user => user.id === project.personId)?.name || '未知'}</span>
+                return <span>{users.find(user => user.id === Number(project.personId))?.name || '未知'}</span>
             }
         },
         {
