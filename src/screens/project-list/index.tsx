@@ -7,13 +7,15 @@ import styled from "@emotion/styled";
 import {Typography} from "antd";
 import {useProjects} from "../../utils/project";
 import {useUsers} from "../../utils/user";
+import {useUrlQueryParam} from "../../utils/url";
 
 
 export const ProjectListScreen = () => {
-    const [param, setParam] = useState({name: '', personId: ''})
+    // const [param, setParam] = useState({name: '', personId: ''})
+    const [param, setParam] = useUrlQueryParam(['name', 'personId']);
     const debounceParam = useDebounce(param, 300);
     const {isLoading, error, data: list} = useProjects(debounceParam);
-    const {data: users} = useUsers()
+    const {data: users} = useUsers();
 
     useDocumentTitle('项目列表', false);
 
