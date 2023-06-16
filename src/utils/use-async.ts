@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {useMountedRef} from "./index";
 
 interface State<D> {
@@ -23,19 +23,19 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
     const [retry, setRetry] = useState(() => () => {});
     const mountedRef = useMountedRef();
 
-    const setData = (data: D) => setState({
+    const setData = useCallback((data: D) => setState({
         data,
         status: 'success',
         error: null
-    })
+    }), [])
 
-    const setError = (error: Error) => setState({
+    const setError = useCallback((error: Error) => setState({
         data: null,
         status: 'error',
         error
-    })
+    }), [])
 
-    const run = (promise: Promise<D>, runConfig?: {retry: () => Promise<D>}) => {
+    const run = useCallback((promise: Promise<D>, runConfig?: {retry: () => Promise<D>}) => {
         if(!promise || !promise.then) {
             throw new Error('请输入 Promise 类型数据')
         }
@@ -44,7 +44,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
             if(runConfig?.retry()) run(runConfig?.retry(), runConfig);
         });
 
-        setState({...state, status: 'loading'});
+        setState(prevState => ({...prevState, status: 'loading'}));
 
         return promise
             .then(data => {
@@ -56,7 +56,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
                 if(config.throwOnError) return Promise.reject(error);
                 return error;
             })
-    }
+    }, [config.throwOnError, mountedRef, setData, setError])
 
     return {
         isIdle: state.status === 'idle',
