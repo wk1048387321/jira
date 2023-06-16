@@ -11,7 +11,7 @@ import {useProjectSearchParams} from "./util";
 
 export const ProjectListScreen = () => {
     const [param, setParam] = useProjectSearchParams();
-    const {isLoading, error, data: list} = useProjects(useDebounce(param, 300));
+    const {isLoading, error, data: list, retry} = useProjects(useDebounce(param, 300));
     const {data: users} = useUsers();
 
     useDocumentTitle('项目列表', false);
@@ -23,7 +23,7 @@ export const ProjectListScreen = () => {
         <h1>项目列表</h1>
         <SearchPanel users={users || []} param={param} setParam={setParam} />
         {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
-        <List users={users || []} dataSource={list || []} loading={isLoading} />
+        <List users={users || []} dataSource={list || []} loading={isLoading} refresh={retry} />
     </Container>
 }
 
