@@ -1,5 +1,4 @@
 import React from "react";
-import {useState} from "react";
 import {SearchPanel} from "./search-panel";
 import {List} from "./list";
 import {useDebounce, useDocumentTitle} from "../../utils";
@@ -11,15 +10,12 @@ import {useUrlQueryParam} from "../../utils/url";
 
 
 export const ProjectListScreen = () => {
-    const [, setParam] = useState({name: '', personId: ''})
     const [param, setSearchParam] = useUrlQueryParam(['name', 'personId']);
     const debounceParam = useDebounce(param, 300);
     const {isLoading, error, data: list} = useProjects(debounceParam);
     const {data: users} = useUsers();
 
     useDocumentTitle('项目列表', false);
-
-    console.log(param);
 
     return <Container>
         {/*<Helmet>*/}
