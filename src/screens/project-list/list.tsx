@@ -1,12 +1,14 @@
 import React from "react";
 import {User} from "./search-panel";
-import {Table, TableProps} from "antd";
+import {Dropdown, Table, TableProps, Button, Menu} from "antd";
 import dayjs from "dayjs";
 import {Link} from "react-router-dom";
 import {Pin} from "../../components/pin";
 import {useEditProject} from "../../utils/project";
+import {ProjectModalProps} from "./project-modal";
+import {ButtonNoPadding} from "../../components/lib";
 
-interface ListProps extends TableProps<Project> {
+interface ListProps extends TableProps<Project>, Pick<ProjectModalProps, 'setProjectModalOpen'> {
     users: User[],
     refresh?: () => void,
 }
@@ -57,6 +59,16 @@ export const List = ({users, ...props}: ListProps) => {
                 return <span>
                     { project.created ? dayjs(project.created).format('YYYY-MM-DD') : '暂无' }
                 </span>
+            }
+        }, {
+            render(value, project) {
+                return <Dropdown overlay={<Menu>
+                    <Menu.Item key={'edit'}>
+                        <ButtonNoPadding type={'link'} onClick={() => props.setProjectModalOpen(true)}>编辑</ButtonNoPadding>
+                    </Menu.Item>
+                </Menu>}>
+                    <Button type={'link'}>...</Button>
+                </Dropdown>
             }
         }
     ]} {...props} />
